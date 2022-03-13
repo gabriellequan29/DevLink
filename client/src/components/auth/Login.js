@@ -1,23 +1,34 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "../utils/FormContainer";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/userActions';
+import Message from '../../components/layout/Message';
 
-export const Login = () => {
+const Login = ({ login, isAuthenticated, error }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const { email, password } = formData;
+  const navigate = useNavigate();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("SUCCESS");
+    login(email, password);
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <FormContainer>
@@ -25,6 +36,7 @@ export const Login = () => {
       <p className="lead">
         <i className="fas fa-user"></i> Sign Into Your Account
       </p>
+      {error && error.map((err) => (<Message variant='danger'>{err.msg}</Message>))}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email Address</Form.Label>
@@ -62,3 +74,15 @@ export const Login = () => {
     </FormContainer>
   );
 };
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.auth.error
+});
+
+export default connect(mapStateToProps, { login })(Login);

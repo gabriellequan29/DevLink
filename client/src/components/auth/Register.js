@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import FormContainer from "../utils/FormContainer";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Message from "../layout/Message";
+import { register } from '../../actions/userActions';
 
-const Register = ({ setAlert }) => {
+const Register = ({register, isAuthenticated, error}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +15,14 @@ const Register = ({ setAlert }) => {
     confirmedPassword: "",
   });
 
+  const navigate = useNavigate();
   const [info, setInfo] = useState('');
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const { name, email, password, confirmedPassword } = formData;
 
@@ -28,10 +35,13 @@ const Register = ({ setAlert }) => {
       setInfo("Password do not match");
     } else {
       setInfo("");
-      console.log("SUCCESS");
+      register({ name, email, password });
     }
   };
 
+  if (isAuthenticated) {
+    navigate('/');
+  }
   return (
     <FormContainer>
       <h1 className="large text-primary">Sign Up</h1>
@@ -39,6 +49,7 @@ const Register = ({ setAlert }) => {
         <i className="fas fa-user"></i> Create Your Account
       </p>
       {info &&  <Message variant='danger'>{info}</Message>}
+      {error && error.map((err) => (<Message variant='danger'>{err.msg}</Message>))}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
@@ -104,7 +115,13 @@ const Register = ({ setAlert }) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { setAlert })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.auth.error
+});
+
+export default connect(mapStateToProps, { register })(Register);
