@@ -49,7 +49,6 @@ img {
   font-size: 4rem;
   line-height: 1.2;
   margin-bottom: 1rem;
-  color: #fff
 }
 
 .large {
@@ -204,7 +203,7 @@ img {
   background: #fff;
   color: #333;
   border: #ccc solid 1px;
-}
+} */
 
 .btn:hover {
   opacity: 0.8;
@@ -213,7 +212,7 @@ img {
 .bg-light,
 .badge-light {
   border: #ccc solid 1px;
-} */
+}
 
 .round-img {
   border-radius: 50%;
@@ -323,9 +322,9 @@ button {
   margin: 0 0.25rem;
 }
 
-/* .navbar a:hover {
+.navbar a:hover {
   color: var(--primary-color);
-} */
+}
 
 .navbar .welcome span {
   margin-right: 0.6rem;

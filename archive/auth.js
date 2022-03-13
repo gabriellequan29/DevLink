@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const User = require('../../models/User');
+const auth = require('../middleware/auth');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -24,7 +24,6 @@ router.get('/', auth, async (req, res) => {
 // @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
-
 router.post(
 '/',
 [   check('email', 'Please include a valid email').isEmail(),

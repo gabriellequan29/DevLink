@@ -6,10 +6,10 @@ const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
 
 
-// @route    GET api/profile/me
+// @route    GET api/profile/myprofile
 // @desc     Get current users profile
 // @access   Private
-router.get('/me', auth, async (req, res) => {
+router.get('/myprofile', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({
             user: req.user.id
@@ -120,10 +120,10 @@ router.get('/',  async (req, res) => {
 });
 
 
-// @route    GET api/profile/user/:user_id
+// @route    GET api/profile/:user_id
 // @desc     Get profile by user ID
 // @access   Public
-router.get('/user/:user_id',  async (req, res) => {
+router.get('/:user_id',  async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', 
         ['name', 'avatar']);
