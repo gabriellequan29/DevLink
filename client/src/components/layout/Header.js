@@ -1,65 +1,69 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/userActions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 const Header = ({ isAuthenticated }) => {
-
   const dispatch = useDispatch();
+  const onClickHandler = () => {
+    dispatch(logout)
+  }
   const authLinks = (
-    <ul>
-      <li>
+    <Nav className="me-auto">
+      <Nav.Link>
         <Link to="/profiles">Developers</Link>
-      </li>
-      <li>
+      </Nav.Link>
+      <Nav.Link>
         <Link to="/posts">Posts</Link>
-      </li>
-      <li>
+      </Nav.Link>
+      <Nav.Link>
         <Link to="/dashboard">
           <i className="fas fa-user" />{" "}
           <span className="hide-sm">Dashboard</span>
         </Link>
-      </li>
-      <li>
-        <Link onClick={dispatch(logout)} to='/'>
+      </Nav.Link>
+      <Nav.Link >
+        <Link to="/">
+          {" "}
           <i className="fas fa-sign-out-alt" />{" "}
-          <span className="hide-sm">Logout</span>
+          <span onClick={dispatch(logout)} className="hide-sm">Logout</span>
         </Link>
-      </li>
-    </ul>
+      </Nav.Link>
+    </Nav>
   );
 
   const guestLinks = (
-    <ul>
-      <li>
+    <Nav className="me-auto">
+      <Nav.Link>
         <Link to="/profiles">Developers</Link>
-      </li>
-      <li>
+      </Nav.Link>
+      <Nav.Link>
         <Link to="/register">Register</Link>
-      </li>
-      <li>
+      </Nav.Link>
+      <Nav.Link>
         <Link to="/login">Login</Link>
-      </li>
-    </ul>
+      </Nav.Link>
+    </Nav>
   );
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container-fluid">
-        <h1>
+    <Navbar bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand>
           <Link to="/">DevLink</Link>
-        </h1>
+        </Navbar.Brand>
         <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      </div>
-    </nav>
+      </Container>
+    </Navbar>
   );
 };
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
