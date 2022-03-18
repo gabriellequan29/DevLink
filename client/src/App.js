@@ -11,10 +11,10 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard/Dashboard";
+import ProfileForm from "./components/profile/ProfileForm";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import { Provider } from "react-redux";
 import store from "./store";
-import { Container } from "react-bootstrap";
 
 const App = () => (
   <Provider store={store}>
@@ -28,6 +28,14 @@ const App = () => (
         <Route
           path="/dashboard"
           element={<PrivateRoute component={Dashboard} />}
+        />
+        <Route
+          path="create-profile"
+          element={<PrivateRoute component={ProfileForm} />}
+        />
+        <Route
+          path="edit-profile"
+          element={<PrivateRoute component={ProfileForm} />}
         />
       </Routes>
     </Router>

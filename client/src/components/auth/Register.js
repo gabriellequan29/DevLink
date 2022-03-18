@@ -40,7 +40,7 @@ const Register = ({register, isAuthenticated, error}) => {
   };
 
   if (isAuthenticated) {
-    navigate('/');
+    navigate('/dashboard');
   }
   return (
     <FormContainer>
