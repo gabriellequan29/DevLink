@@ -332,11 +332,11 @@ button {
 } */
 
 /* Landing Page */
-.landing {
+/* .landing {
   position: relative;
   background: url("./img/showcase.jpg") no-repeat center center/cover;
-  height: 100vh;
-}
+  height: 100%;
+} */
 
 .landing-inner {
   color: #fff;
@@ -348,6 +348,15 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.landing {
+  position: relative;
+  background-image: url("./img/showcase.jpg");
+  height: 91vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Profiles Page */

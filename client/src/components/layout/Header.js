@@ -8,9 +8,6 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 
 const Header = ({ isAuthenticated }) => {
   const dispatch = useDispatch();
-  const onClickHandler = () => {
-    dispatch(logout)
-  }
   const authLinks = (
     <Nav className="me-auto">
       <Nav.Link>

@@ -20,7 +20,7 @@ const Register = ({register, isAuthenticated, error}) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [isAuthenticated, navigate]);
 

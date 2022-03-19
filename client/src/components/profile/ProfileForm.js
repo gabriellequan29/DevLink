@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import FormContainer from "../utils/FormContainer";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Message from "../layout/Message";
@@ -84,7 +84,7 @@ const ProfileForm = ({
         ""
       ) : (
         <>
-          {Object.keys(error).length == 0 ? (
+          {Object.keys(error).length === 0 ? (
             ""
           ) : (
             <Message variant="danger">{error.data.msg}</Message>
