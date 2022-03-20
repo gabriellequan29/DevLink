@@ -30,6 +30,7 @@ function userReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
+        token: payload.token,
         loading: false,
         user: payload,
       };
