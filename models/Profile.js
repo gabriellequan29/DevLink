@@ -87,6 +87,23 @@ const ProfileSchema = new mongoose.Schema({
             }
         }
     ],
+    project: [
+        {
+            projectname: {
+                type: String,
+                required: true
+            },
+            link: {
+                type: String
+            },
+            technologies: {
+                type: [String],
+            },
+            description: {
+                type: String
+            }
+        }
+    ],
     social: {
         youtube: {
             type: String

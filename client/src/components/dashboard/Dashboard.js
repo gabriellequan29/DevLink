@@ -8,6 +8,7 @@ import { Container } from 'react-bootstrap';
 import EditDashboard from './EditDashboard';
 import Education from './Education';
 import Experience from './Experience';
+import Project from './Project';
 
 const Dashboard = ({
   getCurrentProfile,
@@ -31,6 +32,8 @@ const Dashboard = ({
         <EditDashboard />
         <Experience experience={profile.experience} />
         <Education education={profile.education} />
+        <Project project={profile.project} />
+        
 
         {/* <div className="my-2">
           <button className="btn btn-danger" onClick={() => deleteAccount()}>

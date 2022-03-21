@@ -5,7 +5,6 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED,
   GET_REPOS,
   NO_REPOS,
 } from "./types";
@@ -49,6 +48,7 @@ export const getProfiles = () => async (dispatch) => {
           ? error.response.data.errors
           : error.response,
     });
+
   }
 };
 
@@ -140,6 +140,28 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
   }
 };
 
+// Add Project
+export const addProject = (formData, navigate) => async (dispatch) => {
+  try {
+    const res = await api.put("/profile/project", formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    navigate("/dashboard");
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
 // Delete experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
@@ -179,3 +201,24 @@ export const deleteEducation = (id) => async (dispatch) => {
     });
   }
 };
+
+// Delete project
+export const deleteProject = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/project/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+

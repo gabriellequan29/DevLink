@@ -125,7 +125,7 @@ const ProfileForm = ({
           </small>
         </Form.Group>
         <Form.Group className="mb-3" controlId="website">
-          <Form.Label>Company</Form.Label>
+          <Form.Label>Website</Form.Label>
           <Form.Control
             type="text"
             placeholder="Website"

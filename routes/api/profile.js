@@ -328,5 +328,77 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 
 });
 
+// @route    PUT api/profile/project
+// @desc     Add profile project
+// @access   Private
+router.put('/project',
+     [
+         auth,
+         [
+             check('projectname', 'Project name is required')
+                .not()
+                .isEmpty(),
+         ] 
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const {
+            projectname,
+            link,
+            technologies,
+            description
+        } = req.body;
+
+        const newPro = {
+            projectname,
+            link,
+            technologies,
+            description
+        }
+
+        console.log(newPro)
+
+        try {
+            const profile = await Profile.findOne({ user: req.user.id });
+            profile.project.unshift(newPro);
+            await profile.save();
+
+            res.json(profile);
+            
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send('Server Error'); 
+        }
+});
+
+// @route    DELETE api/profile/project/:pro_id
+// @desc     Delete project from profile
+// @access   Private
+router.delete('/project/:pro_id', auth, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.user.id });
+
+        //Get remove index
+        const removeIndex = profile.project.map(pro => pro.id).indexOf
+        (req.params.pro_id);
+
+        profile.project.splice(removeIndex, 1);
+
+        await profile.save();
+
+        res.json(profile);
+
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error'); 
+    }
+
+});
+
+
 
 module.exports = router;
