@@ -11,6 +11,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import AddEducation from "./components/profile/AddEducation";
 import AddExperience from "./components/profile/AddExperience";
 import AddProject from "./components/profile/AddProject";
+import UpdateEducation from "./components/profile/UpdateEducation";
 import ProfilesScreen from "./components/profiles/ProfilesScreen";
 import ProfileScreen from "./components/profiles/ProfileScreen";
 import { Provider } from "react-redux";
@@ -41,6 +42,10 @@ const App = () => (
         <Route
           path="add-education"
           element={<PrivateRoute component={AddEducation} />}
+        />
+        <Route
+          path="edit-education/:id"
+          element={<PrivateRoute component={UpdateEducation} />}
         />
         <Route
           path="add-experience"

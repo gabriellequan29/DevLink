@@ -5,8 +5,8 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  GET_REPOS,
-  NO_REPOS,
+  GET_EDU,
+  NO_EDU,
 } from "./types";
 
 // Get current users profile
@@ -48,7 +48,6 @@ export const getProfiles = () => async (dispatch) => {
           ? error.response.data.errors
           : error.response,
     });
-
   }
 };
 
@@ -162,6 +161,48 @@ export const addProject = (formData, navigate) => async (dispatch) => {
   }
 };
 
+// Get education by id
+export const getEducation = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/profile/education/${id}`);
+
+    dispatch({
+      type: GET_EDU,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NO_EDU,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
+// Update Education By ID
+export const updateEducation = (formData, navigate, id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/education/${id}`, formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    navigate("/dashboard");
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
 // Delete experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
@@ -221,4 +262,3 @@ export const deleteProject = (id) => async (dispatch) => {
     });
   }
 };
-

@@ -4,14 +4,14 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS,
+  GET_EDU,
+  NO_EDU,
 } from "../actions/types";
 
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
+  edu: {},
   loading: true,
   error: {},
 };
@@ -25,6 +25,7 @@ function profileReducer(state = initialState, action) {
         ...state,
         profile: payload,
         loading: false,
+        edu:{},
         error: {},
       };
     case UPDATE_PROFILE:
@@ -32,6 +33,7 @@ function profileReducer(state = initialState, action) {
         ...state,
         profile: payload,
         loading: false,
+        edu:{},
         error: {},
       };
     case GET_PROFILES:
@@ -46,12 +48,26 @@ function profileReducer(state = initialState, action) {
         ...state,
         loading: false,
         profile: null,
+        edu:{},
         error: payload,
       };
     case CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
+        edu:{},
+        error: {},
+      };
+    case GET_EDU:
+      return {
+        ...state,
+        edu: payload,
+        error: {},
+      };
+    case NO_EDU:
+      return {
+        ...state,
+        edu: {},
         error: {},
       };
     default:

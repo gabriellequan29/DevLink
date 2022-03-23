@@ -2,8 +2,9 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import formatDate from "../utils/formateDate";
-import { deleteEducation } from '../../actions/profileActions';
+import { deleteEducation } from "../../actions/profileActions";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Education = ({ education, deleteEducation }) => {
   const educations = education.map((edu) => (
@@ -11,7 +12,12 @@ const Education = ({ education, deleteEducation }) => {
       <td>{edu.school}</td>
       <td className="hide-sm">{edu.degree}</td>
       <td>
-        {formatDate(edu.from)} - {edu.to ? formatDate(edu.to) : "Now"}
+        {formatDate(edu.from)} - {!edu.current ? formatDate(edu.to) : "Now"}
+      </td>
+      <td>
+        <Link className="btn btn-info btn-sm" size="sm" to={{pathname: `/edit-education/${edu._id}`}}>
+          Edit
+        </Link>
       </td>
       <td>
         <Button
@@ -34,6 +40,7 @@ const Education = ({ education, deleteEducation }) => {
             <th className="hide-sm">Degree</th>
             <th className="hide-sm">Years</th>
             <th />
+            <th />
           </tr>
         </thead>
         <tbody>{educations}</tbody>
@@ -44,8 +51,7 @@ const Education = ({ education, deleteEducation }) => {
 
 Education.propTypes = {
   education: PropTypes.array.isRequired,
-  deleteEducation: PropTypes.func.isRequired
+  deleteEducation: PropTypes.func.isRequired,
 };
-
 
 export default connect(null, { deleteEducation })(Education);
