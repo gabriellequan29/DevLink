@@ -3,18 +3,24 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteProject } from '../../actions/profileActions';
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Project = ({ project, deleteProject }) => {
-  const projects = project.map((pro) => (
-    <tr key={pro._id}>
-      <td>{pro.projectname}</td>
-      <td className="hide-sm">{pro.description}</td>
+  const projects = project.map((prj) => (
+    <tr key={prj._id}>
+      <td>{prj.projectname}</td>
+      <td className="hide-sm">{prj.description}</td>
       <td>
-      {pro.technologies}
+      {prj.technologies}
+      </td>
+      <td>
+        <Link className="btn btn-info btn-sm" size="sm" to={{pathname: `/edit-project/${prj._id}`}}>
+          Update
+        </Link>
       </td>
       <td>
         <Button
-          onClick={() => deleteProject(pro._id)}
+          onClick={() => deleteProject(prj._id)}
           variant="danger"
           size="sm"
         >
@@ -32,6 +38,7 @@ const Project = ({ project, deleteProject }) => {
             <th>Project Name</th>
             <th className="hide-sm">Description</th>
             <th className="hide-sm">Technologies</th>
+            <th />
             <th />
           </tr>
         </thead>

@@ -18,3 +18,7 @@ export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 
 export const GET_EDU = 'GET_EDU';
 export const NO_EDU = 'NO_EDU';
+export const GET_EXP = 'GET_EXP';
+export const NO_EXP = 'NO_EXP';
+export const GET_PRJ = 'GET_PRJ';
+export const NO_PRJ = 'NO_PRJ';

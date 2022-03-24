@@ -2,75 +2,75 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getEducation, updateEducation } from "../../actions/profileActions";
+import {
+  getExperience,
+  updateExperience,
+} from "../../actions/profileActions";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../utils/FormContainer";
 import Message from "../layout/Message";
 
-const UpdateEducation = ({
-  profile: { edu, loading, error },
-  getEducation,
-  updateEducation,
+const UpdateExperience = ({
+  profile: { exp, loading, error },
+  getExperience,
+  updateExperience,
 }) => {
   const { id } = useParams();
-
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     _id: "",
-    school: "",
-    degree: "",
-    fieldofstudy: "",
+    company: "",
+    title: "",
+    location: "",
     from: "",
     to: "",
     current: false,
     description: "",
   });
 
-  const { school, degree, fieldofstudy, from, to, description, current } =
-    formData;
+  const { company, title, location, from, to, current, description } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    updateEducation(formData, navigate, id);
+    updateExperience(formData, navigate, id);
   };
 
   useEffect(() => {
-    if (edu && Object.keys(edu).length === 0) {
-      getEducation(id);
+    if (exp && Object.keys(exp).length === 0) {
+      getExperience(id);
     }
 
-    if (!loading && edu) {
-      let from_date = edu.from;
-      let to_date = edu.to;
-      if (edu.from) {
-        from_date = new Date(edu.from).toISOString().split('T')[0];
+    if (!loading && exp) {
+      let from_date = exp.from;
+      let to_date = exp.to;
+      if (exp.from) {
+        from_date = new Date(exp.from).toISOString().split("T")[0];
       }
-      if (edu.to && !edu.current) {
-        to_date = new Date(edu.to).toISOString().split('T')[0];
+      if (exp.to && !exp.current) {
+        to_date = new Date(exp.to).toISOString().split("T")[0];
       }
-
-      const eduData = {
+      const expData = {
         _id: id,
-        school: edu.school,
-        degree: edu.degree,
-        fieldofstudy: edu.fieldofstudy,
+        company: exp.company,
+        title: exp.title,
+        location: exp.location,
         from: from_date,
         to: to_date,
-        current: edu.current,
-        description: edu.description,
+        current: exp.current,
+        description: exp.description,
       };
-      setFormData(eduData);
+      setFormData(expData);
     }
-  }, [id, loading, edu]);
+  }, [id, loading, exp]);
 
   return (
     <FormContainer>
-      <h5 className="large text-primary">Add Education</h5>
+      <h1 className="large text-primary">Add Experience</h1>
       <p className="lead">
-        <i className="fas fa-code-branch" /> Add your education information
+        <i className="fas fa-code-branch" /> Add your experience information
       </p>
       {Object.keys(error).length === 0 ? (
         ""
@@ -78,38 +78,39 @@ const UpdateEducation = ({
         <Message variant="danger">{error.data.msg}</Message>
       )}
       <small>* = required field</small>
+
       <Form onSubmit={(e) => onSubmit(e)}>
-        <Form.Group className="mb-3" controlId="school">
-          <Form.Label>School</Form.Label>
+        <Form.Group className="mb-3" controlId="title">
+          <Form.Label>Job Title</Form.Label>
           <Form.Control
             type="text"
-            placeholder="* School or Bootcamp"
-            name="school"
-            value={school}
+            placeholder="* Job Title"
+            name="title"
+            value={title}
             onChange={onChange}
             required
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="degree">
-          <Form.Label>Degree</Form.Label>
+        <Form.Group className="mb-3" controlId="company">
+          <Form.Label>Company</Form.Label>
           <Form.Control
             type="text"
-            placeholder="* Degree or Certificate"
-            name="degree"
-            value={degree}
+            placeholder="* Company"
+            name="company"
+            value={company}
             onChange={onChange}
             required
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="fieldofstudy">
-          <Form.Label>Field of Study</Form.Label>
+        <Form.Group className="mb-3" controlId="location">
+          <Form.Label>Location</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Field of Study"
-            name="fieldofstudy"
-            value={fieldofstudy}
+            placeholder="Location"
+            name="location"
+            value={location}
             onChange={onChange}
           />
         </Form.Group>
@@ -131,7 +132,7 @@ const UpdateEducation = ({
             checked={current}
             value={current}
             onChange={() => setFormData({ ...formData, current: !current })}
-            label="Current School"
+            label="Current Job"
           />
         </Form.Group>
 
@@ -147,12 +148,12 @@ const UpdateEducation = ({
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="description">
-          <Form.Label>Program Description</Form.Label>
+          <Form.Label>Job Description</Form.Label>
           <Form.Control
             name="description"
             cols={30}
             rows={5}
-            placeholder="Program Description"
+            placeholder="Job Description"
             value={description}
             onChange={onChange}
             as="textarea"
@@ -170,9 +171,9 @@ const UpdateEducation = ({
   );
 };
 
-UpdateEducation.propTypes = {
-  getEducation: PropTypes.func.isRequired,
-  updateEducation: PropTypes.func.isRequired,
+UpdateExperience.propTypes = {
+  getExperience: PropTypes.func.isRequired,
+  updateExperience: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
@@ -180,6 +181,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getEducation, updateEducation })(
-  UpdateEducation
+export default connect(mapStateToProps, { getExperience, updateExperience })(
+  UpdateExperience
 );

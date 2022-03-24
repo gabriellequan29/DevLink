@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import formatDate from "../utils/formateDate";
+import formatDate from "../utils/formatDate";
 import { deleteEducation } from "../../actions/profileActions";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";

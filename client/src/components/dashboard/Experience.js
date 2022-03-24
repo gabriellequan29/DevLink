@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import formatDate from "../utils/formateDate";
+import formatDate from "../utils/formatDate";
 import { deleteExperience } from "../../actions/profileActions";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Experience({ experience, deleteExperience }) {
   const experiences = experience.map((exp) => (
@@ -11,7 +12,12 @@ function Experience({ experience, deleteExperience }) {
       <td>{exp.company}</td>
       <td className="hide-sm">{exp.title}</td>
       <td>
-        {formatDate(exp.from)} - {exp.to ? formatDate(exp.to) : "Now"}
+        {formatDate(exp.from)} - {!exp.current ? formatDate(exp.to) : "Now"}
+      </td>
+      <td>
+        <Link className="btn btn-info btn-sm" size="sm" to={{pathname: `/edit-experience/${exp._id}`}}>
+          Update
+        </Link>
       </td>
       <td>
         <Button
@@ -33,6 +39,7 @@ function Experience({ experience, deleteExperience }) {
             <th>Company</th>
             <th className="hide-sm">Title</th>
             <th className="hide-sm">Years</th>
+            <th />
             <th />
           </tr>
         </thead>

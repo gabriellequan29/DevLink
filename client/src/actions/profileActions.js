@@ -7,6 +7,10 @@ import {
   CLEAR_PROFILE,
   GET_EDU,
   NO_EDU,
+  GET_EXP,
+  NO_EXP,
+  GET_PRJ,
+  NO_PRJ,
 } from "./types";
 
 // Get current users profile
@@ -161,6 +165,26 @@ export const addProject = (formData, navigate) => async (dispatch) => {
   }
 };
 
+// Get experience by id
+export const getExperience = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/profile/experience/${id}`);
+
+    dispatch({
+      type: GET_EXP,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NO_EXP,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
 // Get education by id
 export const getEducation = (id) => async (dispatch) => {
   try {
@@ -181,10 +205,74 @@ export const getEducation = (id) => async (dispatch) => {
   }
 };
 
+// Get project by id
+export const getProject = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/profile/project/${id}`);
+
+    dispatch({
+      type: GET_PRJ,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NO_PRJ,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
+// Update Experience By ID
+export const updateExperience = (formData, navigate, id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/experience/${id}`, formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    navigate("/dashboard");
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
 // Update Education By ID
 export const updateEducation = (formData, navigate, id) => async (dispatch) => {
   try {
     const res = await api.put(`/profile/education/${id}`, formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    navigate("/dashboard");
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
+  }
+};
+
+// Update Project By ID
+export const updateProject = (formData, navigate, id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/project/${id}`, formData);
 
     dispatch({
       type: UPDATE_PROFILE,

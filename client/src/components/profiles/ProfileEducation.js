@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatDate from '../../components/utils/formateDate';
+import formatDate from '../utils/formatDate';
 
 const ProfileEducation = ({
   education: { school, degree, fieldofstudy, current, to, from, description }
