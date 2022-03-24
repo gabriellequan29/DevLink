@@ -23,6 +23,14 @@ export const getCurrentProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -45,6 +53,14 @@ export const getProfiles = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -65,6 +81,14 @@ export const getProfileById = (userId) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -89,6 +113,14 @@ export const createProfile =
 
       navigate("/dashboard");
     } catch (error) {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
       dispatch({
         type: PROFILE_ERROR,
         payload:
@@ -111,6 +143,14 @@ export const addExperience = (formData, navigate) => async (dispatch) => {
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -133,6 +173,14 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -155,6 +203,14 @@ export const addProject = (formData, navigate) => async (dispatch) => {
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -175,6 +231,14 @@ export const getExperience = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: NO_EXP,
       payload:
@@ -195,6 +259,14 @@ export const getEducation = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: NO_EDU,
       payload:
@@ -215,6 +287,14 @@ export const getProject = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: NO_PRJ,
       payload:
@@ -237,6 +317,14 @@ export const updateExperience = (formData, navigate, id) => async (dispatch) => 
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -259,6 +347,14 @@ export const updateEducation = (formData, navigate, id) => async (dispatch) => {
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -281,6 +377,14 @@ export const updateProject = (formData, navigate, id) => async (dispatch) => {
 
     navigate("/dashboard");
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -301,6 +405,14 @@ export const deleteExperience = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -321,6 +433,14 @@ export const deleteEducation = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:
@@ -341,6 +461,14 @@ export const deleteProject = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: PROFILE_ERROR,
       payload:

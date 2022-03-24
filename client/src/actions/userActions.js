@@ -19,13 +19,21 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
-        type: AUTH_ERROR,
-        payload:
-          error.response && error.response.data.errors
-            ? error.response.data.errors
-            : error.response,
-      });
+      type: AUTH_ERROR,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
+    });
   }
 };
 
@@ -40,6 +48,15 @@ export const register = (formData) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+
     dispatch({
       type: REGISTER_FAIL,
       payload:
@@ -64,6 +81,14 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: LOGIN_FAIL,
       payload:
