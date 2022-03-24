@@ -16,7 +16,7 @@ const Education = ({ education, deleteEducation }) => {
       </td>
       <td>
         <Link className="btn btn-info btn-sm" size="sm" to={{pathname: `/edit-education/${edu._id}`}}>
-          Edit
+          Update
         </Link>
       </td>
       <td>

@@ -8,7 +8,7 @@ const ProfileEducation = ({
   <div>
     <h3 className="text-dark">{school}</h3>
     <p>
-      {formatDate(from)} - {to ? formatDate(to) : 'Now'}
+      {formatDate(from)} - {!current ? formatDate(to) : 'Now'}
     </p>
     <span>
       <strong>Degree: </strong> {degree}

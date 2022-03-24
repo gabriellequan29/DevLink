@@ -205,6 +205,71 @@ router.put(
   }
 );
 
+// @route    GET api/profile/experience/:exp_id
+// @desc     GET experience By ID
+// @access   Private
+router.get("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    const exp = profile.experience.find((exp) => exp.id === req.params.exp_id);
+    res.json(exp);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    PUT api/profile/experience/:exp_id
+// @desc     Update experience By ID
+// @access   Private
+
+router.put(
+  "/experience/:exp_id",
+  [
+    auth,
+    [
+      check("title", "Title is required").not().isEmpty(),
+      check("company", "Company is required").not().isEmpty(),
+      check("from", "From is required").not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { _id, title, company, location, from, to, current, description } =
+    req.body;
+
+    const newExp = {
+      _id,
+      title,
+      company,
+      location,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      const updateIndex = profile.experience
+        .map((exp) => exp.id)
+        .indexOf(req.params.exp_id);
+
+      profile.experience[updateIndex] = newExp;
+      await profile.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 // @route    DELETE api/profile/experience/:exp_id
 // @desc     Delete experience from profile
 // @access   Private
@@ -275,7 +340,7 @@ router.put(
 );
 
 // @route    GET api/profile/education/:edu_id
-// @desc     Update education from profile
+// @desc     GET education By ID
 // @access   Private
 router.get("/education/:edu_id", auth, async (req, res) => {
   try {
@@ -287,6 +352,10 @@ router.get("/education/:edu_id", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// @route    PUT api/profile/education/:edu_id
+// @desc     Update education By ID
+// @access   Private
 
 router.put(
   "/education/:edu_id",
@@ -373,20 +442,75 @@ router.put(
 
     const { projectname, link, technologies, description } = req.body;
 
-    const newPro = {
+    const newPrj = {
       projectname,
       link,
       technologies,
       description,
     };
 
-    console.log(newPro);
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      profile.project.unshift(newPrj);
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// @route    GET api/profile/project/:pro_id
+// @desc     GET project By ID
+// @access   Private
+router.get("/project/:prj_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    const project = profile.project.find((prj) => prj.id === req.params.prj_id);
+    res.json(project);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    PUT api/profile/project/:pro_id
+// @desc     Update project By ID
+// @access   Private
+
+router.put(
+  "/project/:prj_id",
+  [
+    auth,
+    [check("projectname", "Project name is required").not().isEmpty()]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { _id, projectname, link, technologies, description } = req.body;
+
+    const newPrj = {
+      _id,
+      projectname,
+      link,
+      technologies,
+      description,
+    };
 
     try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.project.unshift(newPro);
-      await profile.save();
 
+      const updateIndex = profile.project
+        .map((prj) => prj.id)
+        .indexOf(req.params.prj_id);
+
+      profile.project[updateIndex] = newPrj;
+      await profile.save();
       res.json(profile);
     } catch (err) {
       console.error(err.message);
@@ -398,14 +522,14 @@ router.put(
 // @route    DELETE api/profile/project/:pro_id
 // @desc     Delete project from profile
 // @access   Private
-router.delete("/project/:pro_id", auth, async (req, res) => {
+router.delete("/project/:prj_id", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
 
     //Get remove index
     const removeIndex = profile.project
-      .map((pro) => pro.id)
-      .indexOf(req.params.pro_id);
+      .map((prj) => prj.id)
+      .indexOf(req.params.prj_id);
 
     profile.project.splice(removeIndex, 1);
 
