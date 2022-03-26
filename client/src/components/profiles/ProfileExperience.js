@@ -5,7 +5,6 @@ import formatDate from "../utils/formatDate";
 const ProfileExperience = ({
   experience: { company, title, location, current, to, from, description },
 }) => {
-    console.log(company)
   return (
     <div>
       <h3 className="text-dark">{company}</h3>

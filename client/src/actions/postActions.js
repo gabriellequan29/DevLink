@@ -10,13 +10,6 @@ import {
   REMOVE_COMMENT,
 } from "./types";
 
-/*
-  NOTE: we don't need a config object for axios as the
- default headers in axios are already Content-Type: application/json
- also axios stringifies and parses JSON for you, so no need for 
- JSON.stringify or JSON.parse
-*/
-
 // Get posts
 export const getPosts = () => async (dispatch) => {
   try {
@@ -27,6 +20,14 @@ export const getPosts = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
       payload:
@@ -46,10 +47,21 @@ export const addLike = (id) => async (dispatch) => {
       type: UPDATE_LIKES,
       payload: { id, likes: res.data },
     });
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -63,10 +75,21 @@ export const removeLike = (id) => async (dispatch) => {
       type: UPDATE_LIKES,
       payload: { id, likes: res.data },
     });
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -81,11 +104,21 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
 
-    dispatch(setAlert("Post Removed", "success"));
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -100,11 +133,21 @@ export const addPost = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert("Post Created", "success"));
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -118,10 +161,21 @@ export const getPost = (id) => async (dispatch) => {
       type: GET_POST,
       payload: res.data,
     });
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -135,12 +189,21 @@ export const addComment = (postId, formData) => async (dispatch) => {
       type: ADD_COMMENT,
       payload: res.data,
     });
-
-    dispatch(setAlert("Comment Added", "success"));
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };
@@ -154,12 +217,21 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       type: REMOVE_COMMENT,
       payload: commentId,
     });
-
-    dispatch(setAlert("Comment Removed", "success"));
-  } catch (err) {
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      console.log(error.response.data);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : error.response,
     });
   }
 };

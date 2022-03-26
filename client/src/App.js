@@ -16,6 +16,7 @@ import UpdateExperience from "./components/profile/UpdateExperience";
 import UpdateProject from "./components/profile/UpdateProject";
 import ProfilesScreen from "./components/profiles/ProfilesScreen";
 import ProfileScreen from "./components/profiles/ProfileScreen";
+import Posts from "./components/posts/Posts";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -65,6 +66,7 @@ const App = () => (
           path="edit-project/:id"
           element={<PrivateRoute component={UpdateProject} />}
         />
+        <Route path="posts" element={<PrivateRoute component={Posts} />} />
       </Routes>
     </Router>
   </Provider>
