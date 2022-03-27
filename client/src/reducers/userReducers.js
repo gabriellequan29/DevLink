@@ -7,10 +7,22 @@ import {
   LOGIN_FAIL,
   LOGOUT,
 } from "../actions/types";
+import api from '../components/utils/api';
+
+let tokenFromStorage = null;
+let isAuthenticatedFromStorage = null;
+let loadingFromStorage = true;
+if (localStorage.getItem('token') !== null) {
+  tokenFromStorage = localStorage.getItem("token");
+  console.log(tokenFromStorage)
+  isAuthenticatedFromStorage = true;
+  loadingFromStorage = false;
+}
+
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
+  isAuthenticated: false,
   loading: true,
   user: null,
 };

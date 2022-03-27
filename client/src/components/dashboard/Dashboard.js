@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,8 +17,11 @@ const Dashboard = ({
   profile: { profile }
 }) => {
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getCurrentProfile();
+    console.log("useEffect ")
   }, [getCurrentProfile]);
 
 
