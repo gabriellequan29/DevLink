@@ -16,7 +16,7 @@ import {
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    console.log("getCurrentProfile exe")
+  
     const res = await api.get("/profile/myprofile");
 
     dispatch({

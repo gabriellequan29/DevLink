@@ -7,18 +7,6 @@ import {
   LOGIN_FAIL,
   LOGOUT,
 } from "../actions/types";
-import api from '../components/utils/api';
-
-let tokenFromStorage = null;
-let isAuthenticatedFromStorage = null;
-let loadingFromStorage = true;
-if (localStorage.getItem('token') !== null) {
-  tokenFromStorage = localStorage.getItem("token");
-  console.log(tokenFromStorage)
-  isAuthenticatedFromStorage = true;
-  loadingFromStorage = false;
-}
-
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -60,6 +48,7 @@ function userReducer(state = initialState, action) {
     case AUTH_ERROR:
       return { loading: false, error: payload };
     case LOGOUT:
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,

@@ -36,7 +36,7 @@ const Login = ({ login, isAuthenticated, error }) => {
       <p className="lead">
         <i className="fas fa-user"></i> Sign Into Your Account
       </p>
-      {error && error.map((err) => <Message variant="danger">{err.msg}</Message>)}
+      {error && <Message variant="danger">{error.msg}</Message>}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email Address</Form.Label>

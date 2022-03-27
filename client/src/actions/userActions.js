@@ -11,6 +11,7 @@ import {
 
 // Load User
 export const loadUser = () => async (dispatch) => {
+
   try {
     const res = await api.get("/users");
 
@@ -30,9 +31,9 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
       payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+        error.response.data && error.response.data.errors
+          ? error.response.data.errors[0]
+          : error.response.data,
     });
   }
 };
@@ -60,9 +61,9 @@ export const register = (formData) => async (dispatch) => {
     dispatch({
       type: REGISTER_FAIL,
       payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      error.response.data && error.response.data.errors
+      ? error.response.data.errors[0]
+      : error.response.data,
     });
   }
 };
@@ -92,9 +93,9 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: LOGIN_FAIL,
       payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      error.response.data && error.response.data.errors
+        ? error.response.data.errors[0]
+        : error.response.data,
     });
   }
 };

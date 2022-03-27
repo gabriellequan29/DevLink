@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/layout/Header";
@@ -21,59 +21,65 @@ import Post from "./components/post/Post";
 import NotFound from "./components/layout/NotFound";
 import { Provider } from "react-redux";
 import store from "./store";
+import { loadUser } from "./actions/userActions";
 
-const App = () => (
-  <Provider store={store}>
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profiles" element={<ProfilesScreen />} />
-        <Route path="/profile/:id" element={<ProfileScreen />} />
-        <Route
-          path="/dashboard"
-          element={<PrivateRoute component={Dashboard} />}
-        />
-        <Route
-          path="create-profile"
-          element={<PrivateRoute component={ProfileForm} />}
-        />
-        <Route
-          path="edit-profile"
-          element={<PrivateRoute component={ProfileForm} />}
-        />
-        <Route
-          path="add-education"
-          element={<PrivateRoute component={AddEducation} />}
-        />
-        <Route
-          path="edit-education/:id"
-          element={<PrivateRoute component={UpdateEducation} />}
-        />
-        <Route
-          path="add-experience"
-          element={<PrivateRoute component={AddExperience} />}
-        />
-        <Route
-          path="edit-experience/:id"
-          element={<PrivateRoute component={UpdateExperience} />}
-        />
-        <Route
-          path="add-project"
-          element={<PrivateRoute component={AddProject} />}
-        />
-        <Route
-          path="edit-project/:id"
-          element={<PrivateRoute component={UpdateProject} />}
-        />
-        <Route path="posts" element={<PrivateRoute component={Posts} />} />
-        <Route path="posts/:id" element={<PrivateRoute component={Post} />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-    </Router>
-  </Provider>
-);
+const App = () => {
+
+  useEffect(() => {
+
+    store.dispatch(loadUser());
+
+  }, []);
+
+  return (
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profiles" element={<ProfilesScreen />} />
+          <Route path="/profile/:id" element={<ProfileScreen />} />
+          <Route path="/dashboard" element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+
+          <Route path="/create-profile" element={<PrivateRoute />}>
+            <Route path="/create-profile" element={<ProfileForm />} />
+          </Route>
+          <Route path="/edit-profile" element={<PrivateRoute />}>
+            <Route path="/edit-profile" element={<ProfileForm />} />
+          </Route>
+          <Route path="/add-education" element={<PrivateRoute />}>
+            <Route path="/add-education" element={<AddEducation />} />
+          </Route>
+          <Route path="/edit-education/:id" element={<PrivateRoute />}>
+            <Route path="/edit-education/:id" element={<UpdateEducation />} />
+          </Route>
+          <Route path="/add-experience" element={<PrivateRoute />}>
+            <Route path="/add-experience" element={<AddExperience />} />
+          </Route>
+          <Route path="/edit-experience/:id" element={<PrivateRoute />}>
+            <Route path="/edit-experience/:id" element={<UpdateExperience />} />
+          </Route>
+          <Route path="/add-project" element={<PrivateRoute />}>
+            <Route path="/add-project" element={<AddProject />} />
+          </Route>
+          <Route path="/edit-project/:id" element={<PrivateRoute />}>
+            <Route path="/edit-project/:id" element={<UpdateProject />} />
+          </Route>
+          <Route path="/posts" element={<PrivateRoute />}>
+            <Route path="/posts" element={<Posts />} />
+          </Route>
+          <Route path="/posts/:id" element={<PrivateRoute />}>
+            <Route path="/posts/:id" element={<Post />} />
+          </Route>
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;

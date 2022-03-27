@@ -49,7 +49,7 @@ const Register = ({register, isAuthenticated, error}) => {
         <i className="fas fa-user"></i> Create Your Account
       </p>
       {info &&  <Message variant='danger'>{info}</Message>}
-      {error && error.map((err) => (<Message variant='danger'>{err.msg}</Message>))}
+      {error && <Message variant='danger'>{error.msg}</Message>}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>

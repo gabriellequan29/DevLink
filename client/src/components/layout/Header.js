@@ -1,13 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/userActions";
-import { useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Navbar, Container, Nav } from "react-bootstrap";
 
-const Header = ({ isAuthenticated }) => {
-  const dispatch = useDispatch();
+const Header = ({ isAuthenticated, logout }) => {
   const authLinks = (
     <Nav className="me-auto">
       <Nav.Link>
@@ -26,7 +24,7 @@ const Header = ({ isAuthenticated }) => {
         <Link to="/">
           {" "}
           <i className="fas fa-sign-out-alt" />{" "}
-          <span onClick={dispatch(logout)} className="hide-sm">Logout</span>
+          <span onClick={logout} className="hide-sm">Logout</span>
         </Link>
       </Nav.Link>
     </Nav>

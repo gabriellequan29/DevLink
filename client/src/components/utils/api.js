@@ -9,8 +9,14 @@ const api = axios.create({
   }
 });
 
+if (localStorage.token) {
+  api.defaults.headers.common['x-auth-token'] = localStorage.token;
+}
+
 api.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    return res;
+  },
   (err) => {
     if (err.response.status === 401) {
       store.dispatch({ type: LOGOUT });
