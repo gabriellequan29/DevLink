@@ -5,9 +5,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/userActions";
-import Message from "../../components/layout/Message";
 
-const Login = ({ login, isAuthenticated, error }) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -36,7 +35,6 @@ const Login = ({ login, isAuthenticated, error }) => {
       <p className="lead">
         <i className="fas fa-user"></i> Sign Into Your Account
       </p>
-      {error && <Message variant="danger">{error.msg}</Message>}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email Address</Form.Label>
@@ -82,7 +80,6 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.auth.error,
 });
 
 export default connect(mapStateToProps, { login })(Login);

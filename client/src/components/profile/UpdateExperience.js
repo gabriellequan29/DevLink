@@ -8,10 +8,9 @@ import {
 } from "../../actions/profileActions";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../utils/FormContainer";
-import Message from "../layout/Message";
 
 const UpdateExperience = ({
-  profile: { exp, loading, error },
+  profile: { exp, loading },
   getExperience,
   updateExperience,
 }) => {
@@ -72,11 +71,6 @@ const UpdateExperience = ({
       <p className="lead">
         <i className="fas fa-code-branch" /> Add your experience information
       </p>
-      {Object.keys(error).length === 0 ? (
-        ""
-      ) : (
-        <Message variant="danger">{error.data.msg}</Message>
-      )}
       <small>* = required field</small>
 
       <Form onSubmit={(e) => onSubmit(e)}>

@@ -5,9 +5,8 @@ import { connect } from "react-redux";
 import { addExperience } from "../../actions/profileActions";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../utils/FormContainer";
-import Message from "../layout/Message";
 
-const AddExperience = ({ profile: { error }, addExperience }) => {
+const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     company: "",
@@ -35,13 +34,7 @@ const AddExperience = ({ profile: { error }, addExperience }) => {
       <p className="lead">
         <i className="fas fa-code-branch" /> Add your experience information
       </p>
-      {Object.keys(error).length === 0 ? (
-        ""
-      ) : (
-        <Message variant="danger">{error.data.msg}</Message>
-      )}
       <small>* = required field</small>
-
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>Job Title</Form.Label>

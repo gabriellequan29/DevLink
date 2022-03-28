@@ -5,9 +5,8 @@ import { connect } from "react-redux";
 import { addProject } from "../../actions/profileActions";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../utils/FormContainer";
-import Message from "../layout/Message";
 
-const AddProject = ({ profile: { error }, addProject }) => {
+const AddProject = ({ addProject }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     projectname: "",
@@ -32,11 +31,6 @@ const AddProject = ({ profile: { error }, addProject }) => {
       <p className="lead">
         <i className="fas fa-code-branch" /> Add your project information
       </p>
-      {Object.keys(error).length === 0 ? (
-        ""
-      ) : (
-        <Message variant="danger">{error.data.msg}</Message>
-      )}
       <small>* = required field</small>
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="projectname">

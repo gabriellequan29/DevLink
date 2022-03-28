@@ -34,7 +34,6 @@ function profileReducer(state = initialState, action) {
         edu: {},
         exp: {},
         prj: {},
-        error: {},
       };
     case UPDATE_PROFILE:
       return {
@@ -44,14 +43,12 @@ function profileReducer(state = initialState, action) {
         edu: {},
         exp: {},
         prj: {},
-        error: {},
       };
     case GET_PROFILES:
       return {
         ...state,
         profiles: payload,
         loading: false,
-        error: {},
       };
     case PROFILE_ERROR:
       return {
@@ -76,49 +73,31 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         edu: payload,
-        exp: {},
-        prj: {},
-        error: {},
       };
     case NO_EDU:
       return {
         ...state,
-        edu: {},
-        exp: {},
-        prj: {},
-        error: payload,
+        edu: {}
       };
     case GET_EXP:
       return {
         ...state,
-        edu: {},
         exp: payload,
-        prj: {},
-        error: {},
       };
     case NO_EXP:
       return {
         ...state,
-        edu: {},
         exp: {},
-        prj: {},
-        error: payload,
       };
     case GET_PRJ:
       return {
         ...state,
-        edu: {},
-        exp: {},
         prj: payload,
-        error: {},
       };
     case NO_PRJ:
       return {
         ...state,
-        edu: {},
-        exp: {},
         prj: {},
-        error: payload,
       };
     default:
       return state;

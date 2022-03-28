@@ -19,6 +19,7 @@ import ProfileScreen from "./components/profiles/ProfileScreen";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import NotFound from "./components/layout/NotFound";
+import Alert from "./components/layout/Alert";
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/userActions";
@@ -35,6 +36,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Header />
+        <Alert />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />

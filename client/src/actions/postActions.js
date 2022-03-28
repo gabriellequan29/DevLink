@@ -9,6 +9,7 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
 } from "./types";
+import { setAlert } from "./alert";
 
 // Get posts
 export const getPosts = () => async (dispatch) => {
@@ -30,10 +31,10 @@ export const getPosts = () => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -58,10 +59,10 @@ export const addLike = (id) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -86,10 +87,10 @@ export const removeLike = (id) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -104,6 +105,7 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
 
+    dispatch(setAlert("Post Removed", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -115,10 +117,10 @@ export const deletePost = (id) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -133,6 +135,7 @@ export const addPost = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Post Added", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -144,10 +147,10 @@ export const addPost = (formData) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -172,10 +175,10 @@ export const getPost = (id) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -200,10 +203,10 @@ export const addComment = (postId, formData) => async (dispatch) => {
     }
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -217,6 +220,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       type: REMOVE_COMMENT,
       payload: commentId,
     });
+    dispatch(setAlert("Comment Removed", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -226,12 +230,13 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+
     dispatch({
       type: POST_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };

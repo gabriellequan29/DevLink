@@ -44,9 +44,9 @@ function userReducer(state = initialState, action) {
         loading: false,
       };
     case LOGIN_FAIL:
-      return { loading: false, error: payload };
+      return { loading: false  };
     case AUTH_ERROR:
-      return { loading: false, error: payload };
+      return { loading: false };
     case LOGOUT:
       localStorage.removeItem('token');
       return {

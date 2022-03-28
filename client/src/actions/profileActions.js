@@ -12,11 +12,11 @@ import {
   GET_PRJ,
   NO_PRJ,
 } from "./types";
+import { setAlert } from "./alert";
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-  
     const res = await api.get("/profile/myprofile");
 
     dispatch({
@@ -34,10 +34,10 @@ export const getCurrentProfile = () => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -64,10 +64,10 @@ export const getProfiles = () => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -92,10 +92,10 @@ export const getProfileById = (userId) => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -124,10 +124,10 @@ export const createProfile =
       }
       dispatch({
         type: PROFILE_ERROR,
-        payload:
-          error.response && error.response.data.errors
-            ? error.response.data.errors
-            : error.response,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
       });
     }
   };
@@ -142,6 +142,8 @@ export const addExperience = (formData, navigate) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Experience Added", "success"));
+
     navigate("/dashboard");
   } catch (error) {
     if (error.response) {
@@ -152,12 +154,19 @@ export const addExperience = (formData, navigate) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -172,6 +181,8 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Education Added", "success"));
+
     navigate("/dashboard");
   } catch (error) {
     if (error.response) {
@@ -182,12 +193,18 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -202,6 +219,8 @@ export const addProject = (formData, navigate) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Project Added", "success"));
+
     navigate("/dashboard");
   } catch (error) {
     if (error.response) {
@@ -212,12 +231,18 @@ export const addProject = (formData, navigate) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -240,12 +265,9 @@ export const getExperience = (id) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+
     dispatch({
       type: NO_EXP,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
     });
   }
 };
@@ -268,12 +290,9 @@ export const getEducation = (id) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+
     dispatch({
       type: NO_EDU,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
     });
   }
 };
@@ -296,45 +315,51 @@ export const getProject = (id) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+
     dispatch({
       type: NO_PRJ,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
     });
   }
 };
 
 // Update Experience By ID
-export const updateExperience = (formData, navigate, id) => async (dispatch) => {
-  try {
-    const res = await api.put(`/profile/experience/${id}`, formData);
+export const updateExperience =
+  (formData, navigate, id) => async (dispatch) => {
+    try {
+      const res = await api.put(`/profile/experience/${id}`, formData);
 
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data,
-    });
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data,
+      });
 
-    navigate("/dashboard");
-  } catch (error) {
-    if (error.response) {
-      console.log(error.response);
-      console.log(error.response.data);
-    } else if (error.request) {
-      console.log(error.request);
-    } else {
-      console.log("Error", error.message);
+      dispatch(setAlert("Experience Updated", "success"));
+
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response);
+        console.log(error.response.data);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      const errors = error.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      }
+
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
+      });
     }
-    dispatch({
-      type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
-    });
-  }
-};
+  };
 
 // Update Education By ID
 export const updateEducation = (formData, navigate, id) => async (dispatch) => {
@@ -346,6 +371,8 @@ export const updateEducation = (formData, navigate, id) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Education Updated", "success"));
+
     navigate("/dashboard");
   } catch (error) {
     if (error.response) {
@@ -356,12 +383,18 @@ export const updateEducation = (formData, navigate, id) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -376,6 +409,8 @@ export const updateProject = (formData, navigate, id) => async (dispatch) => {
       payload: res.data,
     });
 
+    dispatch(setAlert("Project Updated", "success"));
+
     navigate("/dashboard");
   } catch (error) {
     if (error.response) {
@@ -386,12 +421,18 @@ export const updateProject = (formData, navigate, id) => async (dispatch) => {
     } else {
       console.log("Error", error.message);
     }
+    const errors = error.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -405,6 +446,8 @@ export const deleteExperience = (id) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+
+    dispatch(setAlert("Experience Removed", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -416,10 +459,10 @@ export const deleteExperience = (id) => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -433,6 +476,7 @@ export const deleteEducation = (id) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+    dispatch(setAlert("Education Removed", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -444,10 +488,10 @@ export const deleteEducation = (id) => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };
@@ -461,6 +505,7 @@ export const deleteProject = (id) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+    dispatch(setAlert("Project Removed", "success"));
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -472,10 +517,10 @@ export const deleteProject = (id) => async (dispatch) => {
     }
     dispatch({
       type: PROFILE_ERROR,
-      payload:
-        error.response && error.response.data.errors
-          ? error.response.data.errors
-          : error.response,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
     });
   }
 };

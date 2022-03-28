@@ -4,7 +4,6 @@ import FormContainer from "../utils/FormContainer";
 import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Message from "../layout/Message";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 
 const initialState = {
@@ -23,7 +22,7 @@ const initialState = {
 };
 
 const ProfileForm = ({
-  profile: { profile, loading, error },
+  profile: { profile, loading },
   createProfile,
   getCurrentProfile,
 }) => {
@@ -80,18 +79,6 @@ const ProfileForm = ({
       <h5 className="large text-primary">
         {creatingProfile ? "Create Your Profile" : "Edit Your Profile"}
       </h5>
-      {creatingProfile ? (
-        ""
-      ) : (
-        <>
-          {Object.keys(error).length === 0 ? (
-            ""
-          ) : (
-            <Message variant="danger">{error.data.msg}</Message>
-          )}
-        </>
-      )}
-
       <small>* = required field</small>
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3">

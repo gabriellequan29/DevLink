@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import FormContainer from "../utils/FormContainer";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import Message from "../layout/Message";
 import { register } from '../../actions/userActions';
+import { setAlert } from "../../actions/alert";
 
-const Register = ({register, isAuthenticated, error}) => {
+const Register = ({register, isAuthenticated, setAlert}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,7 +16,6 @@ const Register = ({register, isAuthenticated, error}) => {
   });
 
   const navigate = useNavigate();
-  const [info, setInfo] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -32,9 +31,8 @@ const Register = ({register, isAuthenticated, error}) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmedPassword) {
-      setInfo("Password do not match");
+      setAlert('Passwords do not match', 'danger');
     } else {
-      setInfo("");
       register({ name, email, password });
     }
   };
@@ -48,8 +46,6 @@ const Register = ({register, isAuthenticated, error}) => {
       <p className="lead">
         <i className="fas fa-user"></i> Create Your Account
       </p>
-      {info &&  <Message variant='danger'>{info}</Message>}
-      {error && <Message variant='danger'>{error.msg}</Message>}
       <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
@@ -116,12 +112,12 @@ const Register = ({register, isAuthenticated, error}) => {
 
 Register.propTypes = {
   register: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.auth.error
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, setAlert })(Register);

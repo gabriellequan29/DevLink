@@ -29,11 +29,7 @@ export const loadUser = () => async (dispatch) => {
       console.log("Error", error.message);
     }
     dispatch({
-      type: AUTH_ERROR,
-      payload:
-        error.response.data && error.response.data.errors
-          ? error.response.data.errors[0]
-          : error.response.data,
+      type: AUTH_ERROR
     });
   }
 };
@@ -60,10 +56,6 @@ export const register = (formData) => async (dispatch) => {
 
     dispatch({
       type: REGISTER_FAIL,
-      payload:
-      error.response.data && error.response.data.errors
-      ? error.response.data.errors[0]
-      : error.response.data,
     });
   }
 };
@@ -92,10 +84,6 @@ export const login = (email, password) => async (dispatch) => {
     }
     dispatch({
       type: LOGIN_FAIL,
-      payload:
-      error.response.data && error.response.data.errors
-        ? error.response.data.errors[0]
-        : error.response.data,
     });
   }
 };
