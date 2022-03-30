@@ -5,9 +5,15 @@ live at https://develop-link.herokuapp.com/
 Devlink is a platform designed for software developers to share job opportunities or collaborate with other developers.
 
 ## ScreenShots
-![](images/Welcome%20Page.png)
-![](images/Dashboard.png)
-![](images/ProjectBoard.png)
+![](images/WelcomePage.png)
+![](images/DashBoard.png)
+![](images/Developers.png)
+![](images/Profile.png)
+
+![](images/Posts.png)
+![](images/Comments.png)
+![](images/SignUp.png)
+![](images/Login.png)
 
 ## Prerequisites
 - MongoDB
