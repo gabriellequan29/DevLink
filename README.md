@@ -21,8 +21,10 @@ Devlink is a platform designed for software developers to share job opportunitie
 
 ### Backend
 1. run 
+```
 npm install
 npm start
+```
 ### Frondend
 1. modify Devlink/client/package.json
   - set "proxy": "https://localhost:8080"
@@ -31,4 +33,4 @@ npm start
 cd client
 npm install
 npm start
-
+```
